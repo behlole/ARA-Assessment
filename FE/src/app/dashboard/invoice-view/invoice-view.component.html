@@ -1,0 +1,55 @@
+<!-- invoice-view.component.html -->
+<div class="invoice-view-container">
+    <h2>View Invoices</h2>
+    <mat-form-field>
+        <input matInput placeholder="Search Invoices" [(ngModel)]="searchText" (input)="applyFilter()">
+    </mat-form-field>
+    <table mat-table [dataSource]="filteredInvoices" class="mat-elevation-z8"
+    >
+        <!-- Unique Invoice Identifier Column -->
+        <ng-container matColumnDef="invoiceIdentifier">
+            <th mat-header-cell *matHeaderCellDef> Unique Invoice Identifier</th>
+            <td mat-cell *matCellDef="let invoice"> {{ invoice.invoiceIdentifier }} </td>
+        </ng-container>
+
+        <!-- Customer Name Column -->
+        <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef> Customer Name</th>
+            <td mat-cell *matCellDef="let invoice"> {{ invoice.customerName }} </td>
+        </ng-container>
+
+        <!-- Contact Details Column -->
+        <ng-container matColumnDef="contactDetails">
+            <th mat-header-cell *matHeaderCellDef> Contact Details</th>
+            <td mat-cell *matCellDef="let invoice"> {{ invoice.contactDetails }} </td>
+        </ng-container>
+
+        <!-- Invoice Date Column -->
+        <ng-container matColumnDef="invoiceDate">
+            <th mat-header-cell *matHeaderCellDef> Invoice Date</th>
+            <td mat-cell *matCellDef="let invoice"> {{ invoice.invoiceDate | date: 'short' }} </td>
+        </ng-container>
+
+        <!-- Due Date Column -->
+        <ng-container matColumnDef="dueDate">
+            <th mat-header-cell *matHeaderCellDef> Due Date</th>
+            <td mat-cell *matCellDef="let invoice"> {{ invoice.dueDate | date: 'short' }} </td>
+        </ng-container>
+
+        <!-- Amount Due Column -->
+        <ng-container matColumnDef="amountDue">
+            <th mat-header-cell *matHeaderCellDef> Amount Due</th>
+            <td mat-cell *matCellDef="let invoice"> {{ invoice.amountDue | currency:'USD':'symbol':'1.2-2' }} </td>
+        </ng-container>
+
+        <!-- Payment Status Column -->
+        <ng-container matColumnDef="paymentStatus">
+            <th mat-header-cell *matHeaderCellDef> Payment Status</th>
+            <td mat-cell *matCellDef="let invoice"> {{ invoice.paymentStatus }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- Table Rows -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

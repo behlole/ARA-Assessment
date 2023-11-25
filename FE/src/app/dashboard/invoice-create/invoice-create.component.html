@@ -1,0 +1,31 @@
+<!-- invoice-create.component.html -->
+<div class="invoice-create-container">
+    <h2>Create Invoice</h2>
+    <form>
+        <mat-form-field>
+            <input matInput placeholder="Unique Invoice Identifier" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Customer Name" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Contact Details" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="date" placeholder="Invoice Date" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="date" placeholder="Due Date" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Amount Due" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Payment Status" required>
+                <mat-option value="pending">Pending</mat-option>
+                <mat-option value="paid">Paid</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary">Create Invoice</button>
+    </form>
+</div>

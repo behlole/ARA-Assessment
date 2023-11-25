@@ -2,10 +2,12 @@ const express = require('express')
 const mongoose = require('mongoose');
 const mainRoutes = require("./routes/mainRoutes");
 const responseMappings = require("./utils/responseMappings");
+const cors = require('cors');
 const app = express();
 
 
 app.use(express.json())
+app.use(cors())
 app.use('/', mainRoutes)
 app.use("**", (req, res) => {
     return responseMappings.getErrorMessage(res, `Route ${req.route} not found`);

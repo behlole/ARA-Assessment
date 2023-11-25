@@ -1,0 +1,15 @@
+<!-- sidebar.component.html -->
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav mode="side" opened>
+        <mat-nav-list>
+            <a mat-list-item routerLink="/dashboard/create-invoice" routerLinkActive="active-link">Create Invoice</a>
+            <a mat-list-item routerLink="/dashboard/view-invoices" routerLinkActive="active-link">View Invoices</a>
+            <a mat-list-item routerLink="/dashboard/generate-payment-link" routerLinkActive="active-link">Generate
+                Payment
+                Link</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

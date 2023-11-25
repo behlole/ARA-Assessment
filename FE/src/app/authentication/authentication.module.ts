@@ -6,6 +6,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
+import {HttpClientModule} from "@angular/common/http";
 
 const authenticationRoutes: Routes = [
   {
@@ -26,6 +27,7 @@ const authenticationRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(authenticationRoutes),
+    HttpClientModule,
     MatCardModule,
     MatInputModule,
     FormsModule,

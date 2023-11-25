@@ -1,0 +1,13 @@
+/* sidebar.component.css */
+.sidenav-container {
+    height: 100%;
+}
+
+mat-nav-list {
+    padding: 20px;
+}
+
+.active-link {
+    background-color: #1976D2;
+    color: white;
+}

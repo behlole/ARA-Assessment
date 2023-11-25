@@ -1,16 +1,30 @@
 import {Component} from '@angular/core';
+import {AuthenticationService} from "../services/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+    email: string = '';
+    password: string = '';
 
-  login() {
-    console.log('Username:', this.username);
-    console.log('Password:', this.password);
-  }
+    constructor(private authenticationService: AuthenticationService, private router: Router) {
+    }
+
+    login() {
+        this.authenticationService.login({email: this.email, password: this.password}).subscribe((data: any) => {
+            if (data.status == 200) {
+                localStorage.setItem('token', data.data);
+                this.router.navigate(['dashboard'])
+            }
+            if (data.status == 500) {
+                console.log(data.message)
+            }
+        }, (error) => {
+            console.log(error.error.message)
+        })
+    }
 }
