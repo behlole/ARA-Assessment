@@ -1,12 +1,18 @@
-const express = require('express');
-
+const express = require('express')
+const mongoose = require('mongoose');
+const mainRoutes = require("./routes/mainRoutes");
+const responseMappings = require("./utils/responseMappings");
 const app = express();
+
+
 app.use(express.json())
-app.use('/', (req, res) => {
-    console.log("Server is running ");
+app.use('/', mainRoutes)
+app.use("**", (req, res) => {
+    return responseMappings.getErrorMessage(res, `Route ${req.route} not found`);
 })
 
 const port = process.env.port || 3000;
-app.listen(port, () => {
+app.listen(port, async () => {
     console.log("Server is running on port", port);
+    await mongoose.connect('mongodb://127.0.0.1:27017/Finance');
 })
