@@ -1,6 +1,7 @@
 // invoice-view.component.ts
 import {Component, ViewChild} from '@angular/core';
 import {MatSort} from "@angular/material/sort";
+import {InvoiceService} from "../services/invoice.service";
 
 @Component({
     selector: 'app-invoice-view',
@@ -19,15 +20,15 @@ export class InvoiceViewComponent {
             amountDue: 100.50,
             paymentStatus: 'Paid'
         },
-        {
-            invoiceIdentifier: 'INV#54321',
-            customerName: 'Customer B',
-            contactDetails: 'customerB@email.com',
-            invoiceDate: new Date('2023-02-01'),
-            dueDate: new Date('2023-03-01'),
-            amountDue: 200.75,
-            paymentStatus: 'Pending'
-        },
+        // {
+        //     invoiceIdentifier: 'INV#54321',
+        //     customerName: 'Customer B',
+        //     contactDetails: 'customerB@email.com',
+        //     invoiceDate: new Date('2023-02-01'),
+        //     dueDate: new Date('2023-03-01'),
+        //     amountDue: 200.75,
+        //     paymentStatus: 'Pending'
+        // },
         // Add more invoice data as needed
     ];
     @ViewChild(MatSort) sort!: MatSort;
@@ -35,8 +36,18 @@ export class InvoiceViewComponent {
     filteredInvoices: any[] = [];
     searchText: string = '';
 
-    constructor() {
-        this.filteredInvoices = this.invoices;
+    constructor(private invoiceService: InvoiceService) {
+    }
+
+    ngOnInit(): void {
+        this.loadInvoices();
+    }
+
+    loadInvoices(): void {
+        this.invoiceService.getAllInvoices().subscribe((invoices) => {
+            this.invoices = invoices;
+            this.filteredInvoices = invoices;
+        });
     }
 
     applyFilter() {
