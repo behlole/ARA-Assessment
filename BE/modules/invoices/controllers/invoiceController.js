@@ -1,6 +1,9 @@
 // controllers/invoiceController.js
 const Invoice = require('../models/invoice');
-const stripe = require('stripe')("sk_test_OT9WzPbzz0YYWEs8cpUnG2hz004McTPSiG"); // Replace with your Stripe secret key
+const dotenv = require('dotenv')
+dotenv.config()
+const key = process.env.stripe_client_key;
+const stripe = require('stripe')(key);
 // Create a new invoice
 exports.createInvoice = async (req, res) => {
     try {
