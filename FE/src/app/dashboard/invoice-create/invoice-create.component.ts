@@ -1,39 +1,57 @@
 // invoice-create.component.ts
 import {Component} from '@angular/core';
-import {InvoiceService} from '../services/invoice.service'; // Update with the correct path
+import {InvoiceService} from '../services/invoice.service';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'app-invoice-create',
-    templateUrl: './invoice-create.component.html',
-    styleUrls: ['./invoice-create.component.css'],
+  selector: 'app-invoice-create',
+  templateUrl: './invoice-create.component.html',
+  styleUrls: ['./invoice-create.component.css'],
 })
 export class InvoiceCreateComponent {
-    // Define your invoice model or use a form model
-    invoice: any = {
-        invoiceIdentifier: '',
-        customerName: '',
-        contactDetails: '',
-        invoiceDate: new Date(),
-        dueDate: new Date(),
-        amountDue: 0,
-        paymentStatus: 'Pending',
-    };
+  invoice: any = {
+    invoiceIdentifier: '1234',
+    customerName: 'customer',
+    contactDetails: 'details',
+    invoiceDate: new Date(),
+    dueDate: new Date(),
+    amountDue: 100,
+    paymentStatus: 'Pending',
+  };
 
-    constructor(private invoiceService: InvoiceService, private router: Router) {
-    }
+  constructor(
+    private invoiceService: InvoiceService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
+  }
 
-    createInvoice(): void {
-        this.invoiceService.createInvoice(this.invoice).subscribe(
-            (createdInvoice) => {
-                console.log('Invoice created successfully:', createdInvoice);
-                // Redirect to the view page or do other actions as needed
-                this.router.navigate(['/invoices']);
-            },
-            (error) => {
-                console.error('Error creating invoice:', error);
-                // Handle error, show user-friendly message, etc.
-            }
-        );
-    }
+  createInvoice(): void {
+    this.invoiceService.createInvoice(this.invoice).subscribe(
+      (createdInvoice) => {
+        console.log('Invoice created successfully:', createdInvoice);
+        this.showSuccessAlert('Invoice created successfully');
+        this.router.navigate(['dashboard/view-invoices']);
+      },
+      (error) => {
+        console.error('Error creating invoice:', error);
+        this.showErrorAlert(error.error.error);
+      }
+    );
+  }
+
+  private showSuccessAlert(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['success-snackbar'],
+    });
+  }
+
+  private showErrorAlert(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['error-snackbar'],
+    });
+  }
 }

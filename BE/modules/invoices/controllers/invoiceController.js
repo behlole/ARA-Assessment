@@ -1,6 +1,6 @@
 // controllers/invoiceController.js
 const Invoice = require('../models/invoice');
-
+const stripe = require('stripe')("sk_test_OT9WzPbzz0YYWEs8cpUnG2hz004McTPSiG"); // Replace with your Stripe secret key
 // Create a new invoice
 exports.createInvoice = async (req, res) => {
     try {
@@ -8,6 +8,12 @@ exports.createInvoice = async (req, res) => {
         res.status(201).json(newInvoice);
     } catch (error) {
         console.error(error);
+
+        // Check if the error is due to a duplicate key constraint
+        if (error.code === 11000 && error.keyPattern && error.keyPattern.invoiceIdentifier) {
+            return res.status(400).json({error: 'Invoice with the same identifier already exists.'});
+        }
+
         res.status(500).json({error: 'Internal Server Error'});
     }
 };
@@ -23,10 +29,11 @@ exports.getAllInvoices = async (req, res) => {
     }
 };
 
-// Get a specific invoice by ID
+// Get an invoice by ID
 exports.getInvoiceById = async (req, res) => {
+    const {id} = req.params;
     try {
-        const invoice = await Invoice.findById(req.params.id);
+        const invoice = await Invoice.findById(id);
         if (!invoice) {
             return res.status(404).json({error: 'Invoice not found'});
         }
@@ -37,10 +44,11 @@ exports.getInvoiceById = async (req, res) => {
     }
 };
 
-// Update a specific invoice by ID
+// Update an invoice by ID
 exports.updateInvoice = async (req, res) => {
+    const {id} = req.params;
     try {
-        const updatedInvoice = await Invoice.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const updatedInvoice = await Invoice.findByIdAndUpdate(id, req.body, {new: true});
         if (!updatedInvoice) {
             return res.status(404).json({error: 'Invoice not found'});
         }
@@ -51,16 +59,62 @@ exports.updateInvoice = async (req, res) => {
     }
 };
 
-// Delete a specific invoice by ID
+// Delete an invoice by ID
 exports.deleteInvoice = async (req, res) => {
+    const {id} = req.params;
     try {
-        const deletedInvoice = await Invoice.findByIdAndDelete(req.params.id);
+        const deletedInvoice = await Invoice.findByIdAndDelete(id);
         if (!deletedInvoice) {
             return res.status(404).json({error: 'Invoice not found'});
         }
-        res.status(204).send(); // No Content
+        res.status(204).end();
     } catch (error) {
         console.error(error);
         res.status(500).json({error: 'Internal Server Error'});
     }
 };
+
+// Generate payment link for an invoice
+exports.generatePaymentLink = async (req, res) => {
+    const {invoiceNumber} = req.body;
+
+    // Fetch dynamic amount due based on the invoice number
+    const dynamicAmountDue = await getDynamicAmountDue(invoiceNumber);
+
+    if (dynamicAmountDue === null) {
+        return res.status(404).json({error: 'Invoice not found'});
+    }
+
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'usd',
+                        product_data: {
+                            name: `Invoice #${invoiceNumber}`,
+                        },
+                        unit_amount: dynamicAmountDue, // Use the fetched dynamic amount
+                    },
+                    quantity: 1,
+                },
+            ],
+            mode: 'payment',
+            success_url: `${process.env.client_url}${invoiceNumber}/success`,
+            cancel_url: `${process.env.client_url}${invoiceNumber}/cancel`,
+        });
+
+        res.json({paymentLink: session.url});
+    } catch (error) {
+        console.error('Error generating payment link:', error);
+        res.status(500).json({error: 'Internal server error'});
+    }
+};
+
+// Function to fetch dynamic amount due
+async function getDynamicAmountDue(invoiceNumber) {
+    // Replace this with your logic to fetch the dynamic amount due from your data source
+    const invoice = await Invoice.findOne({invoiceIdentifier: invoiceNumber});
+    return invoice ? invoice.amountDue : null;
+}

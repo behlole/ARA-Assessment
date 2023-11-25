@@ -13,27 +13,35 @@ import {MatListModule} from "@angular/material/list";
 import {MatSelectModule} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
 import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 
 @NgModule({
-    declarations: [
-        InvoiceCreateComponent,
-        InvoiceViewComponent,
-        PaymentLinkComponent,
-        SidebarComponent
-    ],
-    imports: [
-        CommonModule,
-        DashboardRoutingModule,
-        MatInputModule,
-        MatButtonModule,
-        MatTableModule,
-        MatSidenavModule,
-        MatListModule,
-        MatSelectModule,
-        FormsModule,
-        MatSortModule
-    ]
+  declarations: [
+    InvoiceCreateComponent,
+    InvoiceViewComponent,
+    PaymentLinkComponent,
+    SidebarComponent
+  ],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTableModule,
+    MatSidenavModule,
+    MatListModule,
+    MatSelectModule,
+    FormsModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ]
 })
 export class DashboardModule {
 }

@@ -1,0 +1,33 @@
+.payment-link-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.generate-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.payment-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.payment-label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.payment-link-input {
+  width: 100%;
+}
+.payment-link-input {
+  width: 100%;
+  margin-top: 8px; /* Add some top margin for spacing */
+}

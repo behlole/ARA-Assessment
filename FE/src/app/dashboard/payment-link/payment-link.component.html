@@ -1,9 +1,19 @@
 <div class="payment-link-container">
+  <div class="generate-section">
     <h2>Generate Payment Link</h2>
     <form>
-        <mat-form-field>
-            <input matInput placeholder="Invoice Number" required>
-        </mat-form-field>
-        <button mat-raised-button color="primary">Generate Link</button>
+      <mat-form-field>
+        <input matInput placeholder="Invoice Number" required #invoiceNumber>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="generatePayment(invoiceNumber)">Generate Link</button>
     </form>
+  </div>
+
+  <div *ngIf="paymentLink" class="payment-section">
+    <p class="payment-label">Payment Link:</p>
+    <mat-form-field class="payment-link-input">
+      <input matInput [value]="paymentLink" readonly>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="copyToClipboard()">Copy to Clipboard</button>
+  </div>
 </div>

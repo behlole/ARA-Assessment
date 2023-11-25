@@ -1,43 +1,49 @@
 <!-- invoice-create.component.html -->
 <div class="mat-elevation-z2">
-    <h2>Create Invoice</h2>
-    <form (submit)="createInvoice()">
-        <mat-form-field class="form-group">
-            <input matInput placeholder="Invoice Identifier" [(ngModel)]="invoice.invoiceIdentifier"
-                   name="invoiceIdentifier" required>
-        </mat-form-field>
+  <h2 class="title">Create Invoice</h2>
+  <form class="invoice-form" (submit)="createInvoice()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Invoice Identifier</mat-label>
+      <input matInput [(ngModel)]="invoice.invoiceIdentifier" name="invoiceIdentifier" required>
+    </mat-form-field>
 
-        <mat-form-field class="form-group">
-            <input matInput placeholder="Customer Name" [(ngModel)]="invoice.customerName" name="customerName" required>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Customer Name</mat-label>
+      <input matInput [(ngModel)]="invoice.customerName" name="customerName" required>
+    </mat-form-field>
 
-        <mat-form-field class="form-group">
-            <input matInput placeholder="Contact Details" [(ngModel)]="invoice.contactDetails" name="contactDetails"
-                   required>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Contact Details</mat-label>
+      <input matInput [(ngModel)]="invoice.contactDetails" name="contactDetails" required>
+    </mat-form-field>
 
-        <mat-form-field class="form-group">
-            <input matInput placeholder="Invoice Date" [(ngModel)]="invoice.invoiceDate" name="invoiceDate" type="date"
-                   required>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Invoice Date</mat-label>
+      <input matInput [matDatepicker]="invoiceDatepicker" [(ngModel)]="invoice.invoiceDate" name="invoiceDate" required>
+      <mat-datepicker-toggle matSuffix [for]="invoiceDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #invoiceDatepicker></mat-datepicker>
+    </mat-form-field>
 
-        <mat-form-field class="form-group">
-            <input matInput placeholder="Due Date" [(ngModel)]="invoice.dueDate" name="dueDate" type="date" required>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="dueDatepicker" [(ngModel)]="invoice.dueDate" name="dueDate" required>
+      <mat-datepicker-toggle matSuffix [for]="dueDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #dueDatepicker></mat-datepicker>
+    </mat-form-field>
 
-        <mat-form-field class="form-group">
-            <input matInput placeholder="Amount Due" [(ngModel)]="invoice.amountDue" name="amountDue" type="number"
-                   required>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Amount Due</mat-label>
+      <input matInput [(ngModel)]="invoice.amountDue" name="amountDue" type="number" required>
+    </mat-form-field>
 
-        <mat-form-field class="form-group">
-            <mat-label>Payment Status</mat-label>
-            <mat-select placeholder="Payment Status" [(ngModel)]="invoice.paymentStatus" name="paymentStatus" required>
-                <mat-option value="Pending">Pending</mat-option>
-                <mat-option value="Paid">Paid</mat-option>
-            </mat-select>
-        </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Payment Status</mat-label>
+      <mat-select [(ngModel)]="invoice.paymentStatus" name="paymentStatus" required>
+        <mat-option value="Pending">Pending</mat-option>
+        <mat-option value="Paid">Paid</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-        <button mat-raised-button type="submit">Create Invoice</button>
-    </form>
+    <button mat-raised-button color="primary" type="submit">Create Invoice</button>
+  </form>
 </div>

@@ -1,23 +1,27 @@
 /* invoice-create.component.css */
-.invoice-create-container {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.mat-elevation-z2 {
+  width: 60%; /* Adjust the width as needed */
+  margin: auto;
+  padding: 20px;
 }
 
-h2 {
-    text-align: center;
-    color: #1976D2;
+.invoice-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
-mat-form-field {
-    width: 100%;
-    margin-bottom: 15px;
+.full-width {
+  width: calc(50% - 10px); /* Adjust the width and margin as needed */
+  margin-bottom: 20px;
+}
+
+.title {
+  text-align: center;
 }
 
 button {
-    width: 100%;
+  width: 100%; /* Make the button take full width */
+  margin-top: 20px;
 }
