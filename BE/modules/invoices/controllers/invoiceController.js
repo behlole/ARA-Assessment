@@ -101,8 +101,8 @@ exports.generatePaymentLink = async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `${process.env.client_url}${invoiceNumber}/success`,
-            cancel_url: `${process.env.client_url}${invoiceNumber}/cancel`,
+            success_url: `${process.env.client_url}/success/${invoiceNumber}`,
+            cancel_url: `${process.env.client_url}/cancel/${invoiceNumber}`,
         });
 
         res.json({paymentLink: session.url});

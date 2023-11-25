@@ -7,10 +7,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { SuccessCallbackComponent } from './success-callback/success-callback.component';
+import { CancelCallbackComponent } from './cancel-callback/cancel-callback.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SuccessCallbackComponent,
+    CancelCallbackComponent
   ],
   imports: [
     BrowserModule,
