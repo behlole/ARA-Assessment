@@ -1,27 +1,20 @@
 /* invoice-create.component.css */
-.mat-elevation-z2 {
-  width: 60%; /* Adjust the width as needed */
-  margin: auto;
-  padding: 20px;
-}
-
-.invoice-form {
+.invoice-create-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  max-width: 600px; /* Adjust as needed */
+  margin: 0 auto;
+  padding: 20px; /* Add padding for better spacing */
 }
 
-.full-width {
-  width: calc(50% - 10px); /* Adjust the width and margin as needed */
-  margin-bottom: 20px;
-}
-
-.title {
-  text-align: center;
+mat-form-field {
+  flex: 1;
+  margin: 0 10px;
 }
 
 button {
-  width: 100%; /* Make the button take full width */
+  flex: 1;
   margin-top: 20px;
 }

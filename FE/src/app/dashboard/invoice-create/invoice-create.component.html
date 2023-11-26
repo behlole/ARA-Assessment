@@ -1,49 +1,47 @@
 <!-- invoice-create.component.html -->
-<div class="mat-elevation-z2">
-  <h2 class="title">Create Invoice</h2>
-  <form class="invoice-form" (submit)="createInvoice()">
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Invoice Identifier</mat-label>
-      <input matInput [(ngModel)]="invoice.invoiceIdentifier" name="invoiceIdentifier" required>
+<div class="invoice-create-container">
+  <h2>Create Invoice</h2>
+  <form [formGroup]="invoiceForm" (ngSubmit)="createInvoice()">
+    <mat-form-field>
+      <input matInput formControlName="invoiceIdentifier" placeholder="Invoice Identifier" required>
+      <mat-error *ngIf="invoiceForm.get('invoiceIdentifier')?.hasError('required')">Invoice Identifier is required
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Customer Name</mat-label>
-      <input matInput [(ngModel)]="invoice.customerName" name="customerName" required>
+    <mat-form-field>
+      <input matInput formControlName="customerName" placeholder="Customer Name" required>
+      <mat-error *ngIf="invoiceForm.get('customerName')?.hasError('required')">Customer Name is required</mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Contact Details</mat-label>
-      <input matInput [(ngModel)]="invoice.contactDetails" name="contactDetails" required>
+    <mat-form-field>
+      <input matInput formControlName="contactDetails" placeholder="Contact Details" required>
+      <mat-error *ngIf="invoiceForm.get('contactDetails')?.hasError('required')">Contact Details are required
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Invoice Date</mat-label>
-      <input matInput [matDatepicker]="invoiceDatepicker" [(ngModel)]="invoice.invoiceDate" name="invoiceDate" required>
-      <mat-datepicker-toggle matSuffix [for]="invoiceDatepicker"></mat-datepicker-toggle>
-      <mat-datepicker #invoiceDatepicker></mat-datepicker>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" formControlName="invoiceDate" placeholder="Invoice Date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="invoiceForm.get('invoiceDate')?.hasError('required')">Invoice Date is required</mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Due Date</mat-label>
-      <input matInput [matDatepicker]="dueDatepicker" [(ngModel)]="invoice.dueDate" name="dueDate" required>
-      <mat-datepicker-toggle matSuffix [for]="dueDatepicker"></mat-datepicker-toggle>
-      <mat-datepicker #dueDatepicker></mat-datepicker>
+    <mat-form-field>
+      <input matInput [matDatepicker]="dueDatePicker" formControlName="dueDate" placeholder="Due Date" required>
+      <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #dueDatePicker></mat-datepicker>
+      <mat-error *ngIf="invoiceForm.get('dueDate')?.hasError('required')">Due Date is required</mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Amount Due</mat-label>
-      <input matInput [(ngModel)]="invoice.amountDue" name="amountDue" type="number" required>
+    <mat-form-field>
+      <input matInput formControlName="amountDue" placeholder="Amount Due" type="number" required>
+      <mat-error *ngIf="invoiceForm.get('amountDue')?.hasError('required')">Amount Due is required</mat-error>
+      <mat-error *ngIf="invoiceForm.get('amountDue')?.hasError('min')">Amount Due must be greater than or equal to 0
+      </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Payment Status</mat-label>
-      <mat-select [(ngModel)]="invoice.paymentStatus" name="paymentStatus" required>
-        <mat-option value="Pending">Pending</mat-option>
-        <mat-option value="Paid">Paid</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <!-- Add more form controls for other fields with similar validation -->
 
-    <button mat-raised-button color="primary" type="submit">Create Invoice</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="invoiceForm.invalid">Create Invoice</button>
   </form>
 </div>
