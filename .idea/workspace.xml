@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd450dfb-e237-4452-8ebd-bd6676cc89dd" name="Changes" comment="initialized empty FE and BE">
-      <change afterPath="$PROJECT_DIR$/BE/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ReadMe.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,6 +69,7 @@
       <workItem from="1700843098314" duration="1070000" />
       <workItem from="1700844183408" duration="62000" />
       <workItem from="1700844248894" duration="879000" />
+      <workItem from="1700958783943" duration="616000" />
     </task>
     <task id="LOCAL-00001" summary="initialized empty FE and BE">
       <option name="closed" value="true" />
