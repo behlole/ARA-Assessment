@@ -37,4 +37,9 @@ export class InvoiceService {
     const url = `${this.apiUrl}/invoices/generate-payment-link`;
     return this.http.post<any>(url, {invoiceNumber});
   }
+
+  updatePaymentStatus(invoiceNumber: string): Observable<any> {
+    const url = `${this.apiUrl}/invoices/update-payment-status/${invoiceNumber}`;
+    return this.http.put(url, {status: 'paid'});
+  }
 }

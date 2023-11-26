@@ -61,7 +61,26 @@ exports.updateInvoice = async (req, res) => {
         res.status(500).json({error: 'Internal Server Error'});
     }
 };
+exports.updatePaymentStatus = async (req, res) => {
+    const {invoiceNumber} = req.params;
 
+    try {
+        const updatedInvoice = await Invoice.findOneAndUpdate(
+            {invoiceIdentifier: invoiceNumber},
+            {paymentStatus: 'paid'},
+            {new: true}
+        );
+
+        if (!updatedInvoice) {
+            return res.status(404).json({error: 'Invoice not found'});
+        }
+
+        res.status(200).json({message: 'Payment status updated to "paid" successfully'});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+};
 // Delete an invoice by ID
 exports.deleteInvoice = async (req, res) => {
     const {id} = req.params;

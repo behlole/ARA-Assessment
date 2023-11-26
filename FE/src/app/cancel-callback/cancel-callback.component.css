@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+p {
+  font-size: 3em; /* Adjust the font size as needed */
+  color: red;
+}
