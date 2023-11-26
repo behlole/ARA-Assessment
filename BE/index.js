@@ -16,5 +16,5 @@ app.use("**", (req, res) => {
 const port = process.env.port || 3000;
 app.listen(port, async () => {
     console.log("Server is running on port", port);
-    await mongoose.connect('mongodb://127.0.0.1:27017/Finance');
+    await mongoose.connect(process.env.mongodb_url);
 })
